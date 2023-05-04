@@ -34,18 +34,12 @@ http
         const todos = await Todos.read();
         req.body = await parser(req);
         const id = req.body.id;
-        for (i of todos) {
-          if (i.id == id) {
-            res.writeHead(201);
-            res.end(JSON.stringify(i));
-          } else {
-            res.end(JSON.stringify({ message: "This todo not found" }));
-          }
-        }
-        throw new Error("xato");
+        const finded = todos.find((el) => el.id === id);
+        res.writeHead(201);
+        res.end(JSON.stringify(finded));
       } catch (error) {
-        console.log(error);
         res.writeHead(403);
+        res.end(JSON.stringify({ message: "This todo is not found" }));
       }
     } else if (req.url === "/todo/put" && req.method === "PUT") {
       try {
@@ -76,33 +70,33 @@ http
         console.log(error);
       }
     } else if (req.url === "/todo/isCompleted" && req.method === "PUT") {
-        try {
-            const todos = await Todos.read();
-            req.body = await parser(req);
-            const id = req.body.id;
-            console.log(id);
-            const { title, text, isCompleted } = req.body;
-            const idx = todos.findIndex((el) => el.id == id);
-            const changedBlog = {
-              id: todos[idx].id,
-              title: title || todos[idx].title,
-              text: text || todos[idx].text,
-              date: todos[idx].date,
-              isCompleted: isCompleted || todos[idx].isCompleted,
-            };
-            todos[idx] = changedBlog;
-            res.writeHead(200);
-            Todos.write([...todos]);
-            if (idx != -1) {
-              res.end(JSON.stringify({ status: "Ok" }));
-            } else {
-              res.writeHead(200);
-              res.end(JSON.stringify({ status: "error" }));
-            }
-          } catch (error) {
-            res.writeHead(403);
-            res.end(JSON.stringify({ status: "This todo not found" }));
-          }
+      try {
+        const todos = await Todos.read();
+        req.body = await parser(req);
+        const id = req.body.id;
+        console.log(id);
+        const { title, text, isCompleted } = req.body;
+        const idx = todos.findIndex((el) => el.id == id);
+        const changedBlog = {
+          id: todos[idx].id,
+          title: title || todos[idx].title,
+          text: text || todos[idx].text,
+          date: todos[idx].date,
+          isCompleted: isCompleted || todos[idx].isCompleted,
+        };
+        todos[idx] = changedBlog;
+        res.writeHead(200);
+        Todos.write([...todos]);
+        if (idx != -1) {
+          res.end(JSON.stringify({ status: "Ok" }));
+        } else {
+          res.writeHead(200);
+          res.end(JSON.stringify({ status: "error" }));
+        }
+      } catch (error) {
+        res.writeHead(403);
+        res.end(JSON.stringify({ status: "This todo not found" }));
+      }
     } else if (req.url === "/todo/delete" && req.method === "DELETE") {
       try {
         const todos = await Todos.read();

@@ -1,23 +1,9 @@
 [
   {
-    "id": 2,
-    "title": "aloqaga chiqish",
-    "text": "Kinodan  so'ng",
-    "date": "2023-05-04T15:58:50.526Z",
-    "isCompleted": "failed"
-  },
-  {
     "id": 3,
-    "title": "Yugurish",
-    "text": "Kinodan  so'ng",
-    "date": "2023-05-04T15:59:05.870Z",
-    "isCompleted": "success"
-  },
-  {
-    "id": 4,
-    "title": "Yugurish",
-    "text": "ovaqt  so'ng",
-    "date": "2023-05-04T15:59:13.367Z",
+    "title": "tirmashish",
+    "text": "ovaqt dan song",
+    "date": "2023-05-04T16:24:03.600Z",
     "isCompleted": "progress"
   }
 ]
